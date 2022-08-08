@@ -17,15 +17,6 @@ namespace NexusModsButton
         /// <summary>The update button.</summary>
         private NexusButton button;
 
-        /// <summary>The update menu.</summary>
-        // private UpdateMenu menu;
-
-        /// <summary>The mod configuration.</summary>
-        // private ModConfig config;
-
-        /// <summary>The current mod statuses.</summary>
-        // private IList<ModStatus> currentStatuses;
-
 
         /*********
         ** Public methods
