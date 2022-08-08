@@ -16,9 +16,12 @@ namespace NexusModsButton.Menus
 
         private Point mousePosition = Point.Zero;
 
+        private IModHelper modHelper = null;
+
         public NexusButton(IModHelper helper)
         {
-            Texture2D buttonTexture = helper.Content.Load<Texture2D>("assets/nexusButton.png");
+            modHelper = helper;
+            Texture2D buttonTexture = helper.ModContent.Load<Texture2D>("assets/nexusButton.png");
 
             int position = 50;
             // GenericModConfigMenu adds a button in the position we want to use. 
@@ -33,7 +36,7 @@ namespace NexusModsButton.Menus
             }
 
             this.nexusButton = new ClickableTextureComponent(
-                new Rectangle(36, Game1.viewport.Height - position - 48, 81, 75), buttonTexture, new Rectangle(0, 0, 27, 25),
+                new Rectangle(36, Game1.viewport.Height - getWindowYPos() - 48, 81, 75), buttonTexture, new Rectangle(0, 0, 27, 25),
                 3, false);
 
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
@@ -41,12 +44,30 @@ namespace NexusModsButton.Menus
             helper.Events.Display.WindowResized += this.OnWindowResized;
         }
 
+        internal int getWindowYPos()
+        {
+            int position = 50;
+            // GenericModConfigMenu adds a button in the position we want to use. 
+            if (modHelper.ModRegistry.IsLoaded("spacechase0.GenericModConfigMenu"))
+            {
+                position = 150;
+            }
+
+            // ModUpdateMenu adds a button in the position we use if GMCM is loaded, so move up again.
+            if (modHelper.ModRegistry.IsLoaded("cat.modupdatemenu") && modHelper.ModRegistry.IsLoaded("spacechase0.GenericModConfigMenu"))
+            {
+                position = 250;
+            }
+
+            return position;
+        }
+
         /// <summary>Raised after tha game window is resized.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguements.</param>
         private void OnWindowResized(object sender, WindowResizedEventArgs e)
         {
-            this.nexusButton.bounds.Y = Game1.viewport.Height - 150 - 48;
+            this.nexusButton.bounds.Y = Game1.viewport.Height - getWindowYPos() - 48;
         }
 
         /// <summary>Raised after the game state is updated (60 times per second).</summary>
