@@ -23,18 +23,6 @@ namespace NexusModsButton.Menus
             modHelper = helper;
             Texture2D buttonTexture = helper.ModContent.Load<Texture2D>("assets/nexusButton.png");
 
-            int position = 50;
-            // GenericModConfigMenu adds a button in the position we want to use. 
-            if (helper.ModRegistry.IsLoaded("spacechase0.GenericModConfigMenu")) {
-                position = 150;
-            }
-
-            // ModUpdateMenu adds a button in the position we use if GMCM is loaded, so move up again.
-            if (helper.ModRegistry.IsLoaded("cat.modupdatemenu") && helper.ModRegistry.IsLoaded("spacechase0.GenericModConfigMenu"))
-            {
-                position = 250;
-            }
-
             this.nexusButton = new ClickableTextureComponent(
                 new Rectangle(36, Game1.viewport.Height - getWindowYPos() - 48, 81, 75), buttonTexture, new Rectangle(0, 0, 27, 25),
                 3, false);
