@@ -106,12 +106,12 @@ namespace NexusModsButton
                         Verb = "open"
                     };
                     Process.Start(ps);
-                    Game1.playSound("bigSelect");
+                    Game1.playSound("bigSelect", null);
 
                 }
                 catch
                 {
-                    Game1.playSound("toyPiano");
+                    Game1.playSound("toyPiano", null);
                 }
             }
         }
